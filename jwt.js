@@ -1,43 +1,40 @@
-import { decode } from "jwt-simple";
-import { pathToFileURL } from "url";
-
-const jwt = require("jwt-simple")
+"use strict";
+exports.__esModule = true;
+var jwt = require("jwt-simple");
 var fs = require('fs');
 var main = new Object({
     app: String,
     manteiner: String,
     secret: String,
-    createToken() {
+    createToken: function () {
         if (!this.app || !this.manteiner || !this.secret) {
-            throw "Data not provided"
+            throw "Data not provided";
         }
         var payload = {
             info: {
                 app: this.app,
-                manteiner: this.manteiner,
+                manteiner: this.manteiner
             }
-        }
-        var secret: String = this.secret;
-        var token: string = jwt.encode(payload, secret);
-        let name: any = 'token' + '.json';
+        };
+        var secret = this.secret;
+        var token = jwt.encode(payload, secret);
+        var name = 'token' + '.json';
         name = name.toString();
-        fs.writeFile(name, `{"token":"${token}"}`, (err) => {
+        fs.writeFile(name, "{\"token\":\"" + token + "\"}", function (err) {
             if (err) {
                 console.log(err);
-                
-            } else {
-                console.log("File wrote as: " + name);
-                
             }
-        })
-        var result: any = token;
+            else {
+                console.log("File wrote as: " + name);
+            }
+        });
+        var result = token;
         return result;
     },
-    DecodeToken(token:String, secret: string) {
+    DecodeToken: function (token, secret) {
         var decoded = jwt.decode(token, secret);
         //Retorna el decoded token
         return decoded;
     }
-})
-
+});
 module.exports = main;
