@@ -35,6 +35,7 @@ var main = new Object({
     },
     DecodeToken(token:String, secret: string) {
         var decoded = jwt.decode(token, secret);
+        //Retorna el decoded token
         return decoded;
     }
 })
